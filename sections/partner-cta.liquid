@@ -1,0 +1,36 @@
+{%- assign partner_name = page.metafields.custom.partner_name | default: 'your provider' -%}
+
+<section class="partner-cta">
+  <div class="partner-container">
+    <h2 class="partner-cta__title">{{ section.settings.heading }}</h2>
+    <p class="partner-cta__subtitle">
+      {{ section.settings.subheading | replace: '[partner_name]', partner_name }}
+    </p>
+    {%- if section.settings.button_text != blank -%}
+      <a href="#partner-products" class="partner-btn partner-btn--primary partner-cta__btn">
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .partner-cta { background: var(--partner-cta-bg); padding: 80px 0; text-align: center; }
+  .partner-cta__title { font-size: 36px; font-weight: 700; color: var(--partner-cta-text); margin: 0 0 16px; line-height: 1.2; }
+  .partner-cta__subtitle { font-size: 17px; color: var(--partner-cta-muted); max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+  .partner-cta__btn { font-size: 16px; padding: 14px 32px; }
+  @media (max-width: 768px) { .partner-cta { padding: 48px 0; } .partner-cta__title { font-size: 28px; } }
+</style>
+
+{% schema %}
+{
+  "name": "Partner CTA",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Continue Your Care at Home" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Trust the products selected by your [partner_name] team to support your eye health between visits." },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Shop Now" }
+  ],
+  "presets": [{ "name": "Partner CTA" }]
+}
+{% endschema %}

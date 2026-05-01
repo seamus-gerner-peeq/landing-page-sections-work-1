@@ -1,0 +1,182 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "layout": "theme",
+  "sections": {
+    "theme-init": {
+      "type": "partner-theme-init",
+      "settings": {}
+    },
+    "hero": {
+      "type": "partner-hero",
+      "blocks": {
+        "pill-1": {
+          "type": "feature_pill",
+          "settings": {
+            "label": "Personalized Selection",
+            "icon": "heart"
+          }
+        },
+        "pill-2": {
+          "type": "feature_pill",
+          "settings": {
+            "label": "Premium Formulations",
+            "icon": "sparkle"
+          }
+        },
+        "pill-3": {
+          "type": "feature_pill",
+          "settings": {
+            "label": "Clinically Informed",
+            "icon": "shield"
+          }
+        }
+      },
+      "block_order": [
+        "pill-1",
+        "pill-2",
+        "pill-3"
+      ],
+      "settings": {
+        "fallback_name": "Our Partner",
+        "fallback_description": "We have partnered with Peeq Pro to offer thoughtfully curated products that support your care beyond the exam room."
+      }
+    },
+    "collection": {
+      "type": "partner-collection",
+      "blocks": {
+        "filter-2": {
+          "type": "filter_tab",
+          "settings": {
+            "label": "Custom Kits",
+            "tag": "specialty-boxes"
+          }
+        },
+        "filter-3": {
+          "type": "filter_tab",
+          "settings": {
+            "label": "Eye Drops & Lubricants",
+            "tag": "drops"
+          }
+        },
+        "filter-4": {
+          "type": "filter_tab",
+          "settings": {
+            "label": "Warm Compresses",
+            "tag": "warm-compresses"
+          }
+        },
+        "filter-5": {
+          "type": "filter_tab",
+          "settings": {
+            "label": "Supplements",
+            "tag": "supplements"
+          }
+        }
+      },
+      "block_order": [
+        "filter-2",
+        "filter-3",
+        "filter-4",
+        "filter-5"
+      ],
+      "settings": {
+        "heading": "Curated Collection",
+        "subheading": "This collection includes only the products recommended by [partner_name]. Your provider may update these recommendations over time.",
+        "show_filters": true,
+        "max_products": 12
+      }
+    },
+    "education": {
+      "type": "partner-education",
+      "blocks": {
+        "edu-1": {
+          "type": "resource_card",
+          "settings": {
+            "title": "Eye Care Articles",
+            "description": "Explore our full collection of expert articles on eye health, dry eye care, and wellness tips.",
+            "icon": "book",
+            "link_url": "/blogs/blogs-for-consumers",
+            "link_text": "See All"
+          }
+        },
+        "edu-2": {
+          "type": "resource_card",
+          "settings": {
+            "title": "Menopause & Eye Health",
+            "description": "How hormonal changes can affect dryness, comfort, and vision.",
+            "icon": "heart",
+            "link_url": "/pages/menopause",
+            "link_text": "Learn More"
+          }
+        },
+        "edu-3": {
+          "type": "resource_card",
+          "settings": {
+            "title": "Good, Better, Best Dry Eye Care",
+            "description": "A simple, step-by-step routine to help you manage dry eye symptoms at any level.",
+            "icon": "clipboard",
+            "link_url": "/blogs/blogs-for-consumers/a-simple-routine-for-managing-dry-eye-good-better-best",
+            "link_text": "Read Article"
+          }
+        },
+        "edu-4": {
+          "type": "latest_article",
+          "settings": {
+            "blog_handle": "blogs-for-consumers",
+            "icon": "newspaper",
+            "link_text": "Read Article"
+          }
+        }
+      },
+      "block_order": [
+        "edu-1",
+        "edu-2",
+        "edu-3",
+        "edu-4"
+      ],
+      "settings": {
+        "heading": "Learn More About Your Eye Health",
+        "subheading": "At Peeq Pro, we believe education empowers better care. Explore resources to help you manage your eye health."
+      }
+    },
+    "social": {
+      "type": "partner-social",
+      "settings": {
+        "heading": "Connect With Us",
+        "subheading": "Stay up to date with eye care tips and more from [partner_name] and Peeq Pro.",
+        "peeq_instagram": "",
+        "blog_handle": "news",
+        "max_articles": 4
+      }
+    },
+    "cta": {
+      "type": "partner-cta",
+      "settings": {
+        "heading": "Continue Your Care at Home",
+        "subheading": "Trust the products selected by your [partner_name] team to support your eye health between visits.",
+        "button_text": "Shop Now"
+      }
+    },
+    "theme-close": {
+      "type": "partner-theme-close",
+      "settings": {}
+    }
+  },
+  "order": [
+    "theme-init",
+    "hero",
+    "collection",
+    "education",
+    "social",
+    "cta",
+    "theme-close"
+  ]
+}

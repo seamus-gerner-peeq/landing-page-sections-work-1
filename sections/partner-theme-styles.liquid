@@ -1,0 +1,139 @@
+{% comment %}
+  Partner Theme Styles Snippet
+  Reads page metafields and outputs CSS custom properties for theming.
+  Metafields (namespace: partner): theme, primary_color, secondary_color
+{% endcomment %}
+
+{%- assign partner_theme = page.metafields.partner.theme | default: 'clean_light' -%}
+{%- assign partner_primary = page.metafields.partner.primary_color | default: '#0EA5E9' -%}
+{%- assign partner_secondary = page.metafields.partner.secondary_color | default: partner_primary -%}
+
+<style>
+  .partner-page {
+    --partner-primary: {{ partner_primary }};
+    --partner-secondary: {{ partner_secondary }};
+    --partner-primary-10: {{ partner_primary }}1A;
+    --partner-primary-20: {{ partner_primary }}33;
+    --partner-primary-50: {{ partner_primary }}80;
+
+    {% case partner_theme %}
+      {% when 'clean_light' %}
+        --partner-page-bg: #FFFFFF;
+        --partner-section-bg: #F8FAFC;
+        --partner-section-bg-alt: #F1F5F9;
+        --partner-hero-bg: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #F0FDFA 100%);
+        --partner-text-heading: #0F172A;
+        --partner-text-body: #334155;
+        --partner-text-muted: #64748B;
+        --partner-text-on-dark: #FFFFFF;
+        --partner-card-bg: #FFFFFF;
+        --partner-card-border: #E2E8F0;
+        --partner-card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+        --partner-card-shadow-hover: 0 10px 25px rgba(0,0,0,0.08);
+        --partner-btn-primary-bg: var(--partner-primary);
+        --partner-btn-primary-text: #FFFFFF;
+        --partner-btn-outline-border: var(--partner-primary);
+        --partner-btn-outline-text: var(--partner-primary);
+        --partner-badge-bg: #FFFFFF;
+        --partner-badge-border: #E2E8F0;
+        --partner-badge-text: #475569;
+        --partner-divider: #E2E8F0;
+        --partner-cta-bg: #1E3A5F;
+        --partner-cta-text: #FFFFFF;
+        --partner-cta-muted: #CBD5E1;
+        --partner-footer-bg: #1E293B;
+        --partner-footer-text: #CBD5E1;
+        --partner-footer-heading: #F8FAFC;
+        --partner-logo-ring: #E2E8F0;
+        --partner-pill-bg: var(--partner-primary-10);
+        --partner-pill-text: var(--partner-primary);
+        --partner-radius-sm: 6px;
+        --partner-radius-md: 10px;
+        --partner-radius-lg: 16px;
+        --partner-radius-full: 9999px;
+
+      {% when 'warm_clinical' %}
+        --partner-page-bg: #FFFBF7;
+        --partner-section-bg: #FFF8F0;
+        --partner-section-bg-alt: #F5EDE4;
+        --partner-hero-bg: linear-gradient(135deg, #FFFBF7 0%, #FFF1E6 50%, #FEF3E2 100%);
+        --partner-text-heading: #2D1F0E;
+        --partner-text-body: #4A3728;
+        --partner-text-muted: #7A6B5D;
+        --partner-text-on-dark: #FFFBF7;
+        --partner-card-bg: #FFFDF9;
+        --partner-card-border: #E8DDD1;
+        --partner-card-shadow: 0 1px 3px rgba(45,31,14,0.06);
+        --partner-card-shadow-hover: 0 10px 25px rgba(45,31,14,0.08);
+        --partner-btn-primary-bg: var(--partner-primary);
+        --partner-btn-primary-text: #FFFFFF;
+        --partner-btn-outline-border: var(--partner-primary);
+        --partner-btn-outline-text: var(--partner-primary);
+        --partner-badge-bg: #FFFDF9;
+        --partner-badge-border: #E8DDD1;
+        --partner-badge-text: #5C4D3E;
+        --partner-divider: #E8DDD1;
+        --partner-cta-bg: #3D2E1F;
+        --partner-cta-text: #FFFBF7;
+        --partner-cta-muted: #C4B5A4;
+        --partner-footer-bg: #2D1F0E;
+        --partner-footer-text: #C4B5A4;
+        --partner-footer-heading: #FFFBF7;
+        --partner-logo-ring: #E8DDD1;
+        --partner-pill-bg: var(--partner-primary-10);
+        --partner-pill-text: var(--partner-primary);
+        --partner-radius-sm: 8px;
+        --partner-radius-md: 12px;
+        --partner-radius-lg: 20px;
+        --partner-radius-full: 9999px;
+
+      {% when 'bold_dark' %}
+        --partner-page-bg: #0F172A;
+        --partner-section-bg: #1E293B;
+        --partner-section-bg-alt: #162032;
+        --partner-hero-bg: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #162032 100%);
+        --partner-text-heading: #F1F5F9;
+        --partner-text-body: #CBD5E1;
+        --partner-text-muted: #94A3B8;
+        --partner-text-on-dark: #F1F5F9;
+        --partner-card-bg: #1E293B;
+        --partner-card-border: #334155;
+        --partner-card-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        --partner-card-shadow-hover: 0 10px 25px rgba(0,0,0,0.3);
+        --partner-btn-primary-bg: var(--partner-primary);
+        --partner-btn-primary-text: #FFFFFF;
+        --partner-btn-outline-border: var(--partner-primary);
+        --partner-btn-outline-text: var(--partner-primary);
+        --partner-badge-bg: #1E293B;
+        --partner-badge-border: #334155;
+        --partner-badge-text: #94A3B8;
+        --partner-divider: #334155;
+        --partner-cta-bg: var(--partner-primary);
+        --partner-cta-text: #FFFFFF;
+        --partner-cta-muted: rgba(255,255,255,0.7);
+        --partner-footer-bg: #020617;
+        --partner-footer-text: #94A3B8;
+        --partner-footer-heading: #F1F5F9;
+        --partner-logo-ring: #334155;
+        --partner-pill-bg: var(--partner-primary-20);
+        --partner-pill-text: var(--partner-primary);
+        --partner-radius-sm: 6px;
+        --partner-radius-md: 8px;
+        --partner-radius-lg: 12px;
+        --partner-radius-full: 9999px;
+    {% endcase %}
+  }
+
+  .partner-page { background: var(--partner-page-bg); color: var(--partner-text-body); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif; -webkit-font-smoothing: antialiased; }
+  .partner-page *, .partner-page *::before, .partner-page *::after { box-sizing: border-box; }
+  .partner-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 768px) { .partner-container { padding: 0 16px; } }
+  .partner-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: var(--partner-radius-full); font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s ease; border: none; line-height: 1.4; }
+  .partner-btn--primary { background: var(--partner-btn-primary-bg); color: var(--partner-btn-primary-text); }
+  .partner-btn--primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .partner-btn--outline { background: transparent; color: var(--partner-btn-outline-text); border: 1.5px solid var(--partner-btn-outline-border); }
+  .partner-btn--outline:hover { background: var(--partner-primary-10); }
+  .partner-section-title { font-size: 32px; font-weight: 700; color: var(--partner-text-heading); text-align: center; margin: 0 0 12px 0; line-height: 1.2; }
+  .partner-section-subtitle { font-size: 16px; color: var(--partner-text-muted); text-align: center; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+  @media (max-width: 768px) { .partner-section-title { font-size: 24px; } .partner-section-subtitle { font-size: 14px; } }
+</style>

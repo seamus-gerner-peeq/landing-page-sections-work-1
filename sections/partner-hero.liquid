@@ -1,0 +1,236 @@
+{%- comment -%}
+  Section: Partner Hero
+  Displays partner branding, welcome message, logo, and feature pills.
+  Reads from page metafields (namespace: partner).
+{%- endcomment -%}
+
+{%- assign partner_name = page.metafields.custom.partner_name | default: section.settings.fallback_name -%}
+{%- assign partner_network = page.metafields.partner.network_name | default: '' -%}
+{%- assign partner_description = page.metafields.custom.partner_description | default: section.settings.fallback_description -%}
+
+{%- assign partner_logo = page.metafields.custom.partner_logo -%}
+{%- assign partner_second_color = page.metafields.custom.partner_second_color | default: '' -%}
+{%- assign partner_txt_color = page.metafields.custom.partner_txt_color.value | default: '' -%}
+
+
+<section class="partner-hero">
+  <div class="partner-container">
+    <div class="partner-hero__grid">
+      <div class="partner-hero__content">
+        {%- if partner_network != blank -%}
+          <div class="partner-hero__badge">
+            <span class="partner-hero__badge-dot"></span>
+            In partnership with {{ partner_name }} | {{ partner_network }}
+          </div>
+        {%- endif -%}
+
+        <h1 class="partner-hero__title" style="color: #{{  partner_second_color }};">
+          Welcome <span class="partner-hero__highlight" style="color: #{{ partner_txt_color }};">{{ partner_name }}</span> Patients
+        </h1>
+
+        <p class="partner-hero__description" style="color: #{{  partner_second_color }};">{{ partner_description }}</p>
+
+        <div class="partner-hero__pills">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'feature_pill' -%}
+              <div class="partner-hero__pill" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon == 'heart' -%}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                {%- elsif block.settings.icon == 'sparkle' -%}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg>
+                {%- elsif block.settings.icon == 'shield' -%}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                {%- endif -%}
+                {{ block.settings.label }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="partner-hero__logo-wrap">
+        {%- if partner_logo != blank -%}
+          <div class="partner-hero__logo-ring">
+            <img
+              src="{{ partner_logo | image_url: width: 400 }}"
+              alt="{{ partner_name }} logo"
+              class="partner-hero__logo-img"
+              loading="eager"
+              width="400"
+              height="400"
+            >
+          </div>
+        {%- else -%}
+          <div class="partner-hero__logo-ring partner-hero__logo-ring--placeholder">
+            <span class="partner-hero__logo-placeholder">{{ partner_name | truncate: 1, '' }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partner-hero {
+    background: var(--partner-hero-bg);
+    padding: 80px 0 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .partner-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .partner-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--partner-badge-bg);
+    border: 1px solid var(--partner-badge-border);
+    border-radius: var(--partner-radius-full);
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--partner-badge-text);
+    margin-bottom: 24px;
+  }
+  .partner-hero__badge-dot {
+    width: 8px; height: 8px;
+    background: var(--partner-primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .partner-hero__title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--partner-text-heading);
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+  }
+  .partner-hero__highlight {
+    color: var(--partner-primary);
+  }
+  .partner-hero__description {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--partner-text-body);
+    margin: 0 0 28px 0;
+    max-width: 540px;
+  }
+  .partner-hero__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .partner-hero__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--partner-pill-bg);
+    color: var(--partner-pill-text);
+    padding: 8px 14px;
+    border-radius: var(--partner-radius-full);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .partner-hero__logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .partner-hero__logo-ring {
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 3px solid var(--partner-logo-ring);
+    background: var(--partner-card-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: var(--partner-card-shadow);
+  }
+  .partner-hero__logo-img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+  }
+  .partner-hero__logo-ring--placeholder {
+    background: var(--partner-primary-10);
+  }
+  .partner-hero__logo-placeholder {
+    font-size: 80px;
+    font-weight: 700;
+    color: var(--partner-primary);
+  }
+
+  @media (max-width: 900px) {
+    .partner-hero { padding: 48px 0 64px; }
+    .partner-hero__grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .partner-hero__title { font-size: 32px; }
+    .partner-hero__description { margin-left: auto; margin-right: auto; }
+    .partner-hero__pills { justify-content: center; }
+    .partner-hero__logo-ring { width: 220px; height: 220px; }
+  }
+
+
+</style>
+
+{% schema %}
+{
+  "name": "Partner Hero",
+  "tag": "div",
+  "class": "partner-page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "fallback_name",
+      "label": "Fallback Partner Name",
+      "default": "Our Partner",
+      "info": "Used if no partner.name metafield is set on this page"
+    },
+    {
+      "type": "textarea",
+      "id": "fallback_description",
+      "label": "Fallback Description",
+      "default": "We've partnered with Peeq Pro to offer thoughtfully curated products that support your care beyond the exam room."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_pill",
+      "name": "Feature Pill",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Feature"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "heart", "label": "Heart" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "heart"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Partner Hero",
+      "blocks": [
+        { "type": "feature_pill", "settings": { "label": "Personalized Selection", "icon": "heart" } },
+        { "type": "feature_pill", "settings": { "label": "Premium Formulations", "icon": "sparkle" } },
+        { "type": "feature_pill", "settings": { "label": "Clinically Informed", "icon": "shield" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
