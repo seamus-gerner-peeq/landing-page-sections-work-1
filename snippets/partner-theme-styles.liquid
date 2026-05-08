@@ -6,7 +6,19 @@
 
 {%- assign partner_theme = page.metafields.partner.theme | default: 'clean_light' -%}
 {%- assign partner_primary = page.metafields.partner.primary_color | default: '#0EA5E9' -%}
-{%- assign partner_secondary = page.metafields.partner.secondary_color | default: partner_primary -%}
+
+{%- comment -%}
+  Secondary color sources, in priority order:
+  1. custom.partner_second_color (hex string without #, set on each partner page)
+  2. partner.secondary_color (theme-level fallback)
+  3. partner_primary
+{%- endcomment -%}
+{%- assign partner_second_raw = page.metafields.custom.partner_second_color -%}
+{%- if partner_second_raw != blank -%}
+  {%- assign partner_secondary = '#' | append: partner_second_raw -%}
+{%- else -%}
+  {%- assign partner_secondary = page.metafields.partner.secondary_color | default: partner_primary -%}
+{%- endif -%}
 
 <style>
   .partner-page {
