@@ -22,18 +22,52 @@
     </p>
 
     {%- if section.settings.show_filters -%}
+      {%- assign all_products_count = 0 -%}
+      {%- if collection != blank and collection.products.size > 0 -%}
+        {%- for product in collection.products limit: section.settings.max_products -%}
+          {%- assign all_products_count = all_products_count | plus: 1 -%}
+        {%- endfor -%}
+      {%- endif -%}
+
       <div class="partner-collection__filters" id="partner-filters-{{ section.id }}">
-        <button class="partner-collection__filter-btn active" data-filter="all">All Products</button>
+        {%- if all_products_count > 0 -%}
+          <button class="partner-collection__filter-btn active" data-filter="all">All Products</button>
+        {%- endif -%}
         {%- for block in section.blocks -%}
           {%- if block.type == 'filter_tab' -%}
             {%- assign filter_key = block.settings.label | handleize -%}
-            <button
-              class="partner-collection__filter-btn"
-              data-filter="{{ filter_key }}"
-              {{ block.shopify_attributes }}
-            >
-              {{ block.settings.label }}
-            </button>
+            {%- assign title_phrase = block.settings.tag | downcase | strip -%}
+            {%- assign filter_count = 0 -%}
+
+            {%- if filter_key == 'custom-kits' -%}
+              {%- if affiliate_boxes != blank and affiliate_boxes.products.size > 0 and partner_name_match != blank -%}
+                {%- for product in affiliate_boxes.products -%}
+                  {%- assign product_title_match = product.title | downcase -%}
+                  {%- if product_title_match contains partner_name_match -%}
+                    {%- assign filter_count = filter_count | plus: 1 -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- else -%}
+              {%- if collection != blank and title_phrase != blank -%}
+                {%- for product in collection.products limit: section.settings.max_products -%}
+                  {%- assign product_title_match = product.title | downcase -%}
+                  {%- if product_title_match contains title_phrase -%}
+                    {%- assign filter_count = filter_count | plus: 1 -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if filter_count > 0 -%}
+              <button
+                class="partner-collection__filter-btn"
+                data-filter="{{ filter_key }}"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.label }}
+              </button>
+            {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
       </div>
