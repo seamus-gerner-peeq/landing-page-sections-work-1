@@ -45,13 +45,13 @@
             <div class="partner-education__icon">
               {%- case card_icon -%}
                 {%- when 'book' -%}
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--partner-primary)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                 {%- when 'heart' -%}
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--partner-primary)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 {%- when 'clipboard' -%}
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--partner-primary)" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
                 {%- when 'newspaper' -%}
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--partner-primary)" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
               {%- endcase -%}
             </div>
             <h3 class="partner-education__card-title">{{ card_title }}</h3>
@@ -73,7 +73,7 @@
   .partner-education__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 40px; }
   .partner-education__card { background: var(--partner-card-bg); border: 1px solid var(--partner-card-border); border-radius: var(--partner-radius-md); padding: 28px; box-shadow: var(--partner-card-shadow); transition: all 0.25s ease; }
   .partner-education__card:hover { box-shadow: var(--partner-card-shadow-hover); transform: translateY(-2px); }
-  .partner-education__icon { width: 48px; height: 48px; border-radius: var(--partner-radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: var(--partner-primary-10); }
+  .partner-education__icon { width: 48px; height: 48px; border-radius: var(--partner-radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: var(--partner-primary-10); color: var(--partner-primary); }
   .partner-education__card-title { font-size: 18px; font-weight: 600; color: var(--partner-text-heading); margin: 0 0 8px; }
   .partner-education__card-desc { font-size: 14px; color: var(--partner-text-muted); line-height: 1.6; margin: 0 0 16px; }
   .partner-education__card-link { font-size: 14px; font-weight: 600; color: var(--partner-primary); text-decoration: none; }
