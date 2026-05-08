@@ -104,13 +104,15 @@
   .partner-social { background: var(--partner-section-bg); padding: 80px 0; }
   .partner-social__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 32px 0 40px; }
   .partner-social__carousel-wrapper { position: relative; }
-  .partner-social__carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 20px; padding-bottom: 16px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .partner-social__carousel::-webkit-scrollbar { display: none; }
+  .partner-social__carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 20px; padding-bottom: 16px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--partner-secondary) transparent; }
+  .partner-social__carousel::-webkit-scrollbar { height: 8px; }
+  .partner-social__carousel::-webkit-scrollbar-track { background: transparent; }
+  .partner-social__carousel::-webkit-scrollbar-thumb { background: var(--partner-secondary); border-radius: 4px; }
   .partner-social__article-card,
   .partner-social__photo-card { flex: 0 0 280px; width: 280px; scroll-snap-align: start; }
-  .partner-social__photo-card { border-radius: var(--partner-radius-md); overflow: hidden; border: 1px solid var(--partner-card-border); box-shadow: var(--partner-card-shadow); }
+  .partner-social__photo-card { border-radius: var(--partner-radius-md); overflow: hidden; border: 2px solid var(--partner-secondary); box-shadow: var(--partner-card-shadow); }
   .partner-social__photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .partner-social__article-card { background: var(--partner-card-bg); border: 1px solid var(--partner-card-border); border-radius: var(--partner-radius-md); overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--partner-card-shadow); transition: all 0.25s ease; }
+  .partner-social__article-card { background: var(--partner-card-bg); border: 2px solid var(--partner-secondary); border-radius: var(--partner-radius-md); overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--partner-card-shadow); transition: all 0.25s ease; }
   .partner-social__article-card:hover { box-shadow: var(--partner-card-shadow-hover); transform: translateY(-2px); }
   .partner-social__article-image { aspect-ratio: 16/11; overflow: hidden; background: var(--partner-section-bg-alt); display: flex; align-items: center; justify-content: center; }
   .partner-social__article-image img { width: 100%; height: 100%; object-fit: cover; }
