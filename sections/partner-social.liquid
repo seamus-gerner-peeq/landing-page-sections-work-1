@@ -54,10 +54,10 @@
                 {%- for p in office_photos limit: 1 offset: photo_idx -%}
                   {%- assign photo = p -%}
                 {%- endfor -%}
-                {%- if photo != nil and photo.image != blank -%}
+                {%- if photo != nil and photo != blank -%}
                   <div class="partner-social__photo-card">
                     <img
-                      src="{{ photo.image | image_url: width: 400, height: 300, crop: 'center' }}"
+                      src="{{ photo | image_url: width: 400, height: 300, crop: 'center' }}"
                       alt="{{ photo.alt | escape }}"
                       loading="lazy"
                     >
