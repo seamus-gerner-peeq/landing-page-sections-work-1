@@ -1,5 +1,6 @@
-{%- assign partner_name = page.metafields.partner.name | default: 'Our Partner' -%}
-{%- assign partner_instagram = page.metafields.partner.instagram_url -%}
+{%- assign partner_name = page.metafields.custom.partner_name | default: 'Our Partner' -%}
+{%- assign partner_instagram = page.metafields.custom.partner_instagram_url -%}
+{%- assign office_photos = page.metafields.custom.partner_office_photos.value -%}
 
 <section class="partner-social">
   <div class="partner-container">
@@ -23,30 +24,78 @@
       {%- endif -%}
     </div>
 
+    {%- assign has_photos = false -%}
+    {%- if office_photos != blank and office_photos.size > 0 -%}
+      {%- assign has_photos = true -%}
+    {%- endif -%}
+
+    {%- assign has_articles = false -%}
+    {%- assign blog = nil -%}
     {%- if section.settings.blog_handle != blank -%}
       {%- assign blog = blogs[section.settings.blog_handle] -%}
       {%- if blog != blank and blog.articles.size > 0 -%}
+        {%- assign has_articles = true -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if has_photos or has_articles -%}
+      <div class="partner-social__carousel-wrapper">
         <div class="partner-social__carousel">
-          {%- for article in blog.articles limit: section.settings.max_articles -%}
-            <a href="{{ article.url }}" class="partner-social__article-card">
-              {%- if article.image != blank -%}
-                <div class="partner-social__article-image">
-                  <img src="{{ article.image | image_url: width: 400, height: 280, crop: 'center' }}" alt="{{ article.image.alt | escape }}" loading="lazy">
-                </div>
-              {%- else -%}
-                <div class="partner-social__article-image partner-social__article-image--placeholder">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-                </div>
+          {%- assign max_photos = 4 -%}
+          {%- assign max_articles = section.settings.max_articles -%}
+
+          {%- for i in (0..15) -%}
+            {%- assign slot_mod = i | modulo: 2 -%}
+
+            {%- if slot_mod == 0 -%}
+              {%- assign photo_idx = i | divided_by: 2 -%}
+              {%- if photo_idx < max_photos and has_photos -%}
+                {%- assign photo = nil -%}
+                {%- for p in office_photos limit: 1 offset: photo_idx -%}
+                  {%- assign photo = p -%}
+                {%- endfor -%}
+                {%- if photo != nil and photo != blank -%}
+                  <div class="partner-social__photo-card">
+                    <img
+                      src="{{ photo | image_url: width: 400, height: 300, crop: 'center' }}"
+                      alt="{{ photo.alt | escape }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- endif -%}
               {%- endif -%}
-              <div class="partner-social__article-body">
-                <span class="partner-social__article-tag">Peeq Pro</span>
-                <h4 class="partner-social__article-title">{{ article.title }}</h4>
-                <p class="partner-social__article-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 80 }}</p>
-              </div>
-            </a>
+
+            {%- else -%}
+              {%- assign article_idx = i | minus: 1 | divided_by: 2 -%}
+              {%- if article_idx < max_articles and has_articles -%}
+                {%- assign article = nil -%}
+                {%- for a in blog.articles limit: 1 offset: article_idx -%}
+                  {%- assign article = a -%}
+                {%- endfor -%}
+                {%- if article != nil -%}
+                  <a href="{{ article.url }}" class="partner-social__article-card">
+                    {%- if article.image != blank -%}
+                      <div class="partner-social__article-image">
+                        <img src="{{ article.image | image_url: width: 400, height: 280, crop: 'center' }}" alt="{{ article.image.alt | escape }}" loading="lazy">
+                      </div>
+                    {%- else -%}
+                      <div class="partner-social__article-image partner-social__article-image--placeholder">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                      </div>
+                    {%- endif -%}
+                    <div class="partner-social__article-body">
+                      <span class="partner-social__article-tag">Peeq Pro</span>
+                      <h4 class="partner-social__article-title">{{ article.title }}</h4>
+                      <p class="partner-social__article-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+                    </div>
+                  </a>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
           {%- endfor -%}
         </div>
-      {%- endif -%}
+        <div class="partner-social__scroll-dots" aria-hidden="true"></div>
+      </div>
     {%- endif -%}
   </div>
 </section>
@@ -54,24 +103,77 @@
 <style>
   .partner-social { background: var(--partner-section-bg); padding: 80px 0; }
   .partner-social__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 32px 0 40px; }
-  .partner-social__carousel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .partner-social__article-card { background: var(--partner-card-bg); border: 1px solid var(--partner-card-border); border-radius: var(--partner-radius-md); overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--partner-card-shadow); transition: all 0.25s ease; }
+  .partner-social__carousel-wrapper { position: relative; }
+  .partner-social__carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 20px; padding-bottom: 16px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--partner-secondary) transparent; }
+  .partner-social__carousel::-webkit-scrollbar { height: 8px; }
+  .partner-social__carousel::-webkit-scrollbar-track { background: transparent; }
+  .partner-social__carousel::-webkit-scrollbar-thumb { background: var(--partner-secondary); border-radius: 4px; }
+  .partner-social__article-card,
+  .partner-social__photo-card { flex: 0 0 300px; width: 300px; height: 300px; scroll-snap-align: start; }
+  .partner-social__photo-card { border-radius: var(--partner-radius-md); overflow: hidden; box-shadow: var(--partner-card-shadow); }
+  .partner-social__photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .partner-social__article-card { background: var(--partner-card-bg); border-radius: var(--partner-radius-md); overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--partner-card-shadow); transition: all 0.25s ease; display: flex; flex-direction: column; }
   .partner-social__article-card:hover { box-shadow: var(--partner-card-shadow-hover); transform: translateY(-2px); }
-  .partner-social__article-image { aspect-ratio: 16/11; overflow: hidden; background: var(--partner-section-bg-alt); display: flex; align-items: center; justify-content: center; }
+  .partner-social__article-image { height: 150px; flex-shrink: 0; overflow: hidden; background: var(--partner-section-bg-alt); display: flex; align-items: center; justify-content: center; }
   .partner-social__article-image img { width: 100%; height: 100%; object-fit: cover; }
-  .partner-social__article-body { padding: 16px; }
+  .partner-social__article-body { padding: 14px 16px; flex: 1; overflow: hidden; }
   .partner-social__article-tag { display: inline-block; font-size: 11px; font-weight: 600; color: var(--partner-primary); background: var(--partner-primary-10); padding: 3px 8px; border-radius: var(--partner-radius-sm); margin-bottom: 8px; }
-  .partner-social__article-title { font-size: 15px; font-weight: 600; color: var(--partner-text-heading); margin: 0 0 6px; line-height: 1.3; }
-  .partner-social__article-excerpt { font-size: 13px; color: var(--partner-text-muted); margin: 0; line-height: 1.5; }
-  @media (max-width: 1024px) { .partner-social__carousel { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 768px) { .partner-social { padding: 48px 0; } .partner-social__carousel { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
-  @media (max-width: 480px) { .partner-social__carousel { grid-template-columns: 1fr; } }
+  .partner-social__article-title { font-size: 15px; font-weight: 600; color: var(--partner-text-heading); margin: 0 0 6px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .partner-social__article-excerpt { font-size: 13px; color: var(--partner-text-muted); margin: 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .partner-social__scroll-dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+  .partner-social__scroll-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--partner-card-border); border: none; cursor: pointer; padding: 0; transition: background 0.2s ease; }
+  .partner-social__scroll-dot.active { background: var(--partner-primary); }
+  @media (max-width: 768px) { .partner-social { padding: 48px 0; } .partner-social__article-card, .partner-social__photo-card { flex: 0 0 240px; width: 240px; height: 320px; } }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.partner-social__carousel').forEach(function(carousel) {
+      var wrapper = carousel.parentElement;
+      var dots = wrapper.querySelector('.partner-social__scroll-dots');
+
+      function buildDots() {
+        if (!dots || carousel.scrollWidth <= carousel.clientWidth) {
+          if (dots) dots.style.display = 'none';
+          return;
+        }
+        dots.style.display = '';
+        var pageCount = Math.ceil(carousel.scrollWidth / carousel.clientWidth);
+        dots.innerHTML = '';
+        for (var i = 0; i < pageCount; i++) {
+          var dot = document.createElement('button');
+          dot.className = 'partner-social__scroll-dot';
+          dot.setAttribute('aria-label', 'Go to page ' + (i + 1));
+          (function(page) {
+            dot.addEventListener('click', function() {
+              carousel.scrollTo({ left: page * carousel.clientWidth, behavior: 'smooth' });
+            });
+          })(i);
+          dots.appendChild(dot);
+        }
+        updateActive();
+      }
+
+      function updateActive() {
+        if (!dots) return;
+        var current = Math.round(carousel.scrollLeft / carousel.clientWidth);
+        dots.querySelectorAll('.partner-social__scroll-dot').forEach(function(dot, idx) {
+          dot.classList.toggle('active', idx === current);
+        });
+      }
+
+      carousel.addEventListener('scroll', updateActive, { passive: true });
+      window.addEventListener('resize', buildDots);
+      buildDots();
+    });
+  });
+</script>
 
 {% schema %}
 {
   "name": "Partner Social",
   "tag": "div",
+  "class": "partner-page",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Connect With Us" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "Stay up to date with eye care tips and more from [partner_name] and Peeq Pro." },
